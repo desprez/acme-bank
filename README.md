@@ -89,9 +89,9 @@ Spring-jpa est utilisé dans la couche infrastructure et le mapping est impléme
 
 ## Diagramme de classes
 
-voir bank-account-domain/src/main/resources/Class%20Diagram.png
+![alt text](bank-account-domain/src/main/resources/Class%20Diagram.png "Class Diagram")
 
-# TODO
+# Next steps
 
 Dans les prochains sprints (à prioriser avec le PO)
 - Implémentation du convertisseur de devise
