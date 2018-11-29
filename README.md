@@ -13,7 +13,7 @@ Voici les besoins tel que le "métier" aurait pu les exprimer :
   - un utilisateur consulte le solde d'un compte bancaire.
   - un utilisateur effectue un retrait d'argent sur un compte.
   - un utilisateur effectue un transfert d'argent d'un compte sur un autre compte.
-  - un batch permet d'exporter la liste des compte comprenant l'iban, le solde, le statut et la devise.
+  - un batch permet d'exporter la liste des comptes comprenant l'iban, le solde, le statut et la devise.
 
 ### Règles de gestion
 
@@ -79,15 +79,20 @@ Ce fichier peut être externalisé sur le serveur Liberty dans un répertoire /c
 
 # Notes d'implémentation
 
-- Le projet "bank-account-domain" contient des tests unitaires et des scénarios cucumber tels que le BA aurait pu les exprimer.
-- Le projet "bank-account-application" contient des tests unitaires bouchonnés.
-- Le projet "bank-account-exposition" contient des tests d'API correspondant à des scénarios cucumber tels que le BA les a exprimé.
-- Le projet "bank-account-infrastructure" contient des tests unitaires.
+* Le projet "bank-account-domain" contient des tests unitaires et des scénarios cucumber tels que le BA aurait pu les exprimer.
+* Le projet "bank-account-application" contient des tests unitaires bouchonnés.
+* Le projet "bank-account-exposition" contient des tests d'API correspondant à des scénarios cucumber tels que le BA les a exprimé.
+* Le projet "bank-account-infrastructure" contient des tests unitaires.
 
-La base de donnnées utilisée est une base de donnée en mémoire (H2).
-Spring-jpa est utilisé dans la couche infrastructure et le mapping est implémenté via le fichier META-INF/orm.xml.
+* La base de donnnées utilisée est une base de donnée en mémoire (H2).
 
-## Diagramme de classes
+* Spring-jpa est utilisé dans la couche infrastructure et le mapping est implémenté via le fichier META-INF/orm.xml afin de ne pas inclure de dépendance JPA dans la couche domain.
+
+* Les outils de génération de code "boiler plate" tels que lombok et mapstruct n'ont pas été utilisé volontairement :
+	- afin de ne pas nuire à lisibilité et la navigation dans le code (pour cette application à but éducatif)
+	- car ils sont très IDE dépendants (ici pas besoin de confuguration supplémentaire ni de plugin)
+
+## Diagramme de classes de la couche domain
 
 ![alt text](bank-account-domain/src/main/resources/Class%20Diagram.png "Class Diagram")
 
