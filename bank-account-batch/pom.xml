@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>bank-account-batch</artifactId>
+	<packaging>jar</packaging>
+
+	<name>bank-account-batch</name>
+	<description>Il contient les lanceurs des programmes batch et la coordination entre les différentes étapes (Reader/Processor/Writer) au sens spring-batch, nécessaires pour chaque traitement. Il ne contient pas l’état d’un objet.</description>
+
+	<parent>
+		<groupId>com.acmebank.demo</groupId>
+		<artifactId>bank-account</artifactId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<!-- Project dependencies -->
+		<dependency>
+			<groupId>com.acmebank.demo</groupId>
+			<artifactId>bank-account-application</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+
+ 		<dependency>
+			<groupId>com.acmebank.demo</groupId>
+			<artifactId>bank-account-infrastructure</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- Spring Boot dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-batch</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- hibernate validator< dependencies -->
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<!-- <scope>runtime</scope> -->
+		</dependency>
+
+	</dependencies>
+	<build>
+		<plugins>
+			<!-- Copy dependencies for sample application -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>
+								${project.build.directory}/lib/
+							</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<classifier>spring-boot</classifier>
+							<mainClass>
+  								org.springframework.batch.core.launch.support.CommandLineJobRunner
+<!-- 								com.acmebank.demo.bank.account.app.BatchApplication -->
+							</mainClass>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

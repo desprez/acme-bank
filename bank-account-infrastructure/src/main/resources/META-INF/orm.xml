@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1"
+	xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_1.xsd">
+
+	<description>Bank Account Application</description>
+
+	<persistence-unit-metadata>
+		<persistence-unit-defaults>
+			<access>FIELD</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+
+	<package>entity</package>
+
+	<mapped-superclass
+		class="com.acmebank.demo.bank.account.app.domain.entity.BaseEntity">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="TABLE" />
+			</id>
+		</attributes>
+	</mapped-superclass>
+
+	<entity
+		class="com.acmebank.demo.bank.account.app.domain.entity.BankAccount"
+		name="BankAccount" access="FIELD">
+		<table name="BANK_ACCOUNT" />
+
+		<convert
+			converter="com.acmebank.demo.bank.account.app.infrastructure.converter.AccountNumberAttributeConverter"
+			attribute-name="accountNumber" />
+
+		<convert
+			converter="com.acmebank.demo.bank.account.app.infrastructure.converter.AccountStatusAttributeConverter"
+			attribute-name="status" />
+
+		<convert
+			converter="com.acmebank.demo.bank.account.app.infrastructure.converter.LocalDateAttributeConverter"
+			attribute-name="createdDate" />
+
+		<convert
+			converter="com.acmebank.demo.bank.account.app.infrastructure.converter.MoneyAttributeConverter"
+			attribute-name="balance" />
+
+		<convert
+			converter="com.acmebank.demo.bank.account.app.infrastructure.converter.MoneyAttributeConverter"
+			attribute-name="lowerLimit" />
+
+		<attributes>
+			<basic name="accountNumber">
+				<column name="ACCOUNT_NUMBER" length="34" />
+			</basic>
+			<basic name="balance">
+				<column name="BALANCE" />
+			</basic>
+			<basic name="lowerLimit">
+				<column name="LOWER_LIMIT" />
+			</basic>
+			<basic name="status">
+				<column name="STATUS" length="1" />
+			</basic>
+			<basic name="createdDate">
+				<column name="CREATED_DATE" />
+			</basic>
+			<one-to-one name="history" fetch="LAZY"
+				target-entity="com.acmebank.demo.bank.account.app.domain.entity.History">
+				<join-column name="HISTORY_ID" />
+				<cascade>
+					<cascade-all />
+				</cascade>
+			</one-to-one>
+		</attributes>
+	</entity>
+
+	<entity
+		class="com.acmebank.demo.bank.account.app.domain.entity.History"
+		name="History" access="FIELD">
+		<table name="HISTORY" />
+
+		<convert
+			converter="com.acmebank.demo.bank.account.app.infrastructure.converter.MoneyAttributeConverter"
+			attribute-name="balance" />
+
+		<attributes>
+			<basic name="balance">
+				<column name="BALANCE" />
+			</basic>
+			<one-to-one name="previous" fetch="LAZY">
+				<join-column name="PREVIOUS_ID" />
+				<cascade>
+					<cascade-all />
+				</cascade>
+			</one-to-one>
+		</attributes>
+	</entity>
+
+
+</entity-mappings>

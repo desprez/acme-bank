@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>bank-account-infrastructure</artifactId>
+	<packaging>jar</packaging>
+
+	<name>bank-account-infrastructure</name>
+	<description>La couche Infrastructure abrite le code d'infrastructure (ex: envoi de mails, émission d'événements, interaction avec la base de données...).</description>
+
+	<parent>
+		<groupId>com.acmebank.demo</groupId>
+		<artifactId>bank-account</artifactId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<!-- Project dependencies -->
+		<dependency>
+			<groupId>com.acmebank.demo</groupId>
+			<artifactId>bank-account-domain</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+
+<!-- To replace by spring-boot-starter-data-xxx
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- add here infrastructure dependencies (BDD drivers, MQ adpaters, etc... -->
+
+		<!--For database in WEBSPEHRE Liberty Core, use jndi -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.oracle</groupId> -->
+		<!-- <artifactId>ojdbc7</artifactId> -->
+		<!-- <version>12.1.0</version> -->
+		<!-- <scope>runtime</scope> -->
+		<!-- </dependency> -->
+
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.assertj</groupId>
+					<artifactId>assertj-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+<!--  			<scope>runtime</scope> -->
+		</dependency>
+
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+        </dependency>
+	</dependencies>
+
+</project>

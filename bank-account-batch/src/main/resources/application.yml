@@ -1,0 +1,43 @@
+spring:
+  debug: false
+  application:
+    name: bank-account-batch
+  jpa:
+    database: h2  
+    show-sql: false
+    open-in-view: false
+    database-plateform: org.hibernate.dialect.H2Dialect
+    mapping-resources: META-INF/orm.xml
+    hibernate:
+      use-new-id-generator-mappings: true
+    properties:
+      javax:
+        persistence:
+          schema-generation:
+            scripts:
+              create-target: create.sql
+  batch:
+    job:
+      enabled: false                    
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+
+# Logging Configurations
+logging:
+  level:
+    root: info
+    org.hibernate: warn
+    com.acmebank.demo.bank.account.app: info
+    org.springframework.batch: info
+#    org.springframework.core.io.support: debug
+#    org.springframework.context.annotation: debug
+  file: myfile.log
+  path: logs
+  pattern:
+    console: "%date{yyyy-MM-dd HH:mm:ss.SSSXXX} | %-5level | %X{IP} | %X{HostName} | %X{AppName} | %X{X-B3-TraceId:-} | %X{X-B3-SpanId:-} | %X{X-Span-Export:-} | %X{UserID} | %X{Marker} | %logger{36} - %msg%n"                
